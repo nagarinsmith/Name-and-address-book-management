@@ -18,6 +18,7 @@ class UI:
         string += "\t 7 - List persons\n"
         string += "\t 8 - List activities\n"
         string += "\t 9 - Search persons\n"
+        string += "\t 10 - Search activities\n"
         string += "\t help - List commands\n"
         string += "\t 0 - Exit\n"
         print(string)
@@ -193,6 +194,23 @@ class UI:
                 else:
                     raise TypeError("Invalid command")
                 print(self.__personController.search(command, searchTerm))
+
+            elif command == '10':
+                string = "\nCriteria:\n"
+                string += "\t1 - Date\n"
+                string += "\t2 - Time\n"
+                string += "\t3 - Description\n"
+                print(string)
+                command = input("Command> ")
+                try:
+                    command = int(command)
+                except ValueError:
+                    raise ValueError("Invalid command")
+                if command == 1 or 2 or 3:
+                    searchTerm = str(input("Criteria> "))
+                else:
+                    raise TypeError("invalid command")
+                print(self.__activityController.search(command, searchTerm))
 
             elif command == '0':
                 keepAlive = False

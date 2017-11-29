@@ -56,7 +56,7 @@ class PersonController:
     def search(self, criteria, searchTerm):
         """
         Searches persons based on name or phone number
-        :param criteria:
+        :param criteria: name/phone number
         :param searchTerm:
         :return:
         """
@@ -123,3 +123,25 @@ class ActivityController:
         :return:
         """
         return self.__activityRepository
+
+    def search(self, criteria, searchTerm):
+        """
+        Searches activities based on date time or description
+        :param criteria: date/time/description
+        :param searchTerm:
+        :return:
+        """
+        searchRepo = Repository()
+        if criteria == 1:
+            for activity in self.__activityRepository.getAll():
+                if searchTerm in activity.date:
+                    searchRepo.store(activity)
+        elif criteria == 2:
+            for activity in self.__activityRepository.getAll():
+                if searchTerm in activity.time:
+                    searchRepo.store(activity)
+        elif criteria == 3:
+            for activity in self.__activityRepository.getAll():
+                if searchTerm in activity.time:
+                    searchRepo.store(activity)
+        return searchRepo
