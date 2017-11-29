@@ -1,5 +1,6 @@
 from domain import Person, Activity
 from validators import PersonValidator, ActivityValidator
+from repository import  Repository
 
 
 class PersonController:
@@ -51,6 +52,25 @@ class PersonController:
         :return:
         """
         return self.__personRepository
+
+    def search(self, criteria, searchTerm):
+        """
+        Searches persons based on name or phone number
+        :param criteria:
+        :param searchTerm:
+        :return:
+        """
+        searchRepo = Repository()
+        if criteria == 1:
+            for person in self.__personRepository.getAll():
+                if searchTerm in person.name:
+                    searchRepo.store(person)
+        elif criteria == 2:
+            for person in self.__personRepository.getAll():
+                if searchTerm in person.phoneNumber:
+                    searchRepo.store(person)
+        return searchRepo
+
 
 
 class ActivityController:
