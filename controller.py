@@ -1,6 +1,6 @@
 from domain import Person, Activity
 from validators import PersonValidator, ActivityValidator
-from repository import  Repository
+from repository import Repository
 
 
 class PersonController:
@@ -70,7 +70,6 @@ class PersonController:
                 if searchTerm in person.phoneNumber:
                     searchRepo.store(person)
         return searchRepo
-
 
 
 class ActivityController:

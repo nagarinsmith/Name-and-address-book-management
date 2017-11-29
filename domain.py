@@ -9,6 +9,7 @@ class Activity:
         self.__time = time
         self.__description = description
     # Getters and setters
+
     @property
     def Id(self):
         return self.__Id
@@ -87,7 +88,8 @@ class Person:
         self.__name = name
         self.__phoneNumber = phoneNumber
         self.__address = address
-    #Getters and setters
+    # Getters and setters
+
     @property
     def Id(self):
         return self.__Id
@@ -129,7 +131,7 @@ class Person:
         """
         :return: String containing details about activity formatted for user
         """
-        return "Id: " + str(self.__Id)+\
+        return "Id: " + str(self.__Id) +\
                ", Name: " + self.__name +\
                ", Phone Number: " + self.__phoneNumber +\
                ", Address: " + self.__address
