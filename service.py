@@ -3,7 +3,7 @@ from validators import PersonValidator, ActivityValidator
 from repository import Repository
 
 
-class PersonController:
+class PersonService:
     """
     Bridge between ui and repo
     """
@@ -30,8 +30,16 @@ class PersonController:
         :param Id:
         :return:
         """
-        # TODO-remove activities which contained the deleted person id
-        self.__activityRepository.delete(Id)
+        # delete person ID from all activities in which it's present
+        indexOffset = 0
+        for i in range(len(self.__activityRepository.getAll())):
+            if Id in self.__activityRepository.getAll()[i - indexOffset].personIds:
+                self.__activityRepository.getAll()[i - indexOffset].personIds.remove(Id)
+            if len(self.__activityRepository.getAll()[i - indexOffset].personIds) == 0:
+                self.__activityRepository.delete(self.__activityRepository.getAll()[i - indexOffset].Id)
+                indexOffset += 1
+
+        self.__personRepository.delete(Id)
 
     def update(self, Id, name, phoneNumber, address):
         """
@@ -72,7 +80,7 @@ class PersonController:
         return searchRepo
 
 
-class ActivityController:
+class ActivityService:
     """
     Bridge between ui and repo
     """
@@ -131,16 +139,16 @@ class ActivityController:
         :return:
         """
         searchRepo = Repository()
-        if criteria == 1:
+        if criteria == '1':
             for activity in self.__activityRepository.getAll():
-                if searchTerm in activity.date:
+                if searchTerm == activity.date:
                     searchRepo.store(activity)
-        elif criteria == 2:
+        elif criteria == '2':
             for activity in self.__activityRepository.getAll():
-                if searchTerm in activity.time:
+                if searchTerm == activity.time:
                     searchRepo.store(activity)
-        elif criteria == 3:
+        elif criteria == '3':
             for activity in self.__activityRepository.getAll():
-                if searchTerm in activity.time:
+                if searchTerm in activity.description:
                     searchRepo.store(activity)
         return searchRepo

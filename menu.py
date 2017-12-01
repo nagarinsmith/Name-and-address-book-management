@@ -1,4 +1,5 @@
 import re
+import datetime
 
 
 class UI:
@@ -27,7 +28,7 @@ class UI:
         UI.__printMenu()
         keepAlive = True
         while keepAlive:
-            command = str(input("Command> "))
+            command = input("Command> ")
             if command == '1':
                 Id = input("Person id> ")
                 try:
@@ -37,18 +38,18 @@ class UI:
                 if Id < 0:
                     raise ValueError("Id must be bigger or equal to 0")
 
-                name = str(input("Person name> "))
+                name = input("Person name> ")
                 if len(name) < 1:
                     raise TypeError("Invalid name")
                 nameRule = re.compile(r'[a-zA-Z\s]+$')
                 if not nameRule.search(name):
                     raise TypeError("Invalid name")
 
-                phoneNumber = str(input("Person phone number> "))
+                phoneNumber = input("Person phone number> ")
                 if len(phoneNumber) != 10:
                     raise TypeError("Invalid phone number")
 
-                address = str(input("Person address> "))
+                address = input("Person address> ")
                 if len(address) < 7:
                     raise TypeError("Invalid address")
 
@@ -72,17 +73,31 @@ class UI:
                     except ValueError:
                         raise ValueError("Invalid person ids")
 
-                # TODO-date and time integrity check
+                # reading date
+                print("Reading date..")
+                year = input("Year> ")
+                month = input("Month (1-12)> ")
+                day = input("Day> ")
+                try:
+                    year = int(year)
+                    month = int(month)
+                    day = int(day)
+                except ValueError:
+                    raise ValueError("Invalid date")
+                date = datetime.date(year, month, day)
 
-                date = str(input("Activity date> "))
-                if len(date) < 1:
-                    raise TypeError("Must specify activity date")
+                # reading time
+                print("Reading time..")
+                hour = input("Hour> ")
+                minutes = input("Minutes> ")
+                try:
+                    hour = int(hour)
+                    minutes = int(minutes)
+                except ValueError:
+                    raise ValueError("Invalid time")
+                time = datetime.time(hour, minutes)
 
-                time = str(input("Activity time> "))
-                if len(time) < 1:
-                    raise TypeError("Must specify activity time")
-
-                description = str(input("Activity description: "))
+                description = input("Activity description: ")
                 if len(description) < 1:
                     raise TypeError("Must specify activity description")
 
@@ -120,18 +135,18 @@ class UI:
                 if Id < 0:
                     raise ValueError("Id must be bigger or equal to 0")
 
-                name = str(input("Person name> "))
+                name = input("Person name> ")
                 if len(name) < 1:
                     raise TypeError("Invalid name")
                 nameRule = re.compile(r'[a-zA-Z\s]+$')
                 if not nameRule.search(name):
                     raise TypeError("Invalid name")
 
-                phoneNumber = str(input("Person phone number> "))
+                phoneNumber = input("Person phone number> ")
                 if len(phoneNumber) != 10:
                     raise TypeError("Invalid phone number")
 
-                address = str(input("Person address> "))
+                address = input("Person address> ")
                 if len(address) < 7:
                     raise TypeError("Invalid address")
 
@@ -156,17 +171,29 @@ class UI:
                     except ValueError:
                         raise ValueError("Invalid person ids")
 
-                # TODO-date and time integrity check
+                print("Reading date..")
+                year = input("Year> ")
+                month = input("Month (1-12)> ")
+                day = input("Day> ")
+                try:
+                    year = int(year)
+                    month = int(month)
+                    day = int(day)
+                except ValueError:
+                    raise ValueError("Invalid date")
+                date = datetime.date(year, month, day)
 
-                date = str(input("Activity date> "))
-                if len(date) < 1:
-                    raise TypeError("Must specify activity date")
+                print("Reading time..")
+                hour = input("Hour> ")
+                minutes = input("Minutes> ")
+                try:
+                    hour = int(hour)
+                    minutes = int(minutes)
+                except ValueError:
+                    raise ValueError("Invalid time")
+                time = datetime.time(hour, minutes)
 
-                time = str(input("Activity time> "))
-                if len(time) < 1:
-                    raise TypeError("Must specify activity time")
-
-                description = str(input("Activity description: "))
+                description = input("Activity description: ")
                 if len(description) < 1:
                     raise TypeError("Must specify activity description")
 
@@ -190,7 +217,7 @@ class UI:
                 except ValueError:
                     raise ValueError("Invalid command")
                 if command == 1 or 2:
-                    searchTerm = str(input("Criteria> "))
+                    searchTerm = input("Criteria> ")
                 else:
                     raise TypeError("Invalid command")
                 print(self.__personController.search(command, searchTerm))
@@ -202,12 +229,32 @@ class UI:
                 string += "\t3 - Description\n"
                 print(string)
                 command = input("Command> ")
-                try:
-                    command = int(command)
-                except ValueError:
-                    raise ValueError("Invalid command")
-                if command == 1 or 2 or 3:
-                    searchTerm = str(input("Criteria> "))
+                if command == '1':
+                    print("Reading date..")
+                    year = input("Year> ")
+                    month = input("Month (1-12)> ")
+                    day = input("Day> ")
+                    try:
+                        year = int(year)
+                        month = int(month)
+                        day = int(day)
+                    except ValueError:
+                        raise ValueError("Invalid date")
+                    searchTerm = datetime.date(year, month, day)
+
+                elif command == '2':
+                    print("Reading time..")
+                    hour = input("Hour> ")
+                    minutes = input("Minutes> ")
+                    try:
+                        hour = int(hour)
+                        minutes = int(minutes)
+                    except ValueError:
+                        raise ValueError("Invalid time")
+                    searchTerm = datetime.time(hour, minutes)
+
+                elif command == '3':
+                    searchTerm = input("Criteria> ")
                 else:
                     raise TypeError("invalid command")
                 print(self.__activityController.search(command, searchTerm))

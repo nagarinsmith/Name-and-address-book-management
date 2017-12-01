@@ -71,8 +71,8 @@ class Activity:
         """
         return "Id: " + str(self.__Id) +\
                ", Person Ids: " + self.__personIdsToPersonString() +\
-               "Date: " + self.__date +\
-               ", Time: " + self.__time +\
+               "Date: " + str(self.__date) +\
+               ", Time: " + str(self.__time) +\
                ", Description: " + self.__description
 
     def __repr__(self):
