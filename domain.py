@@ -1,3 +1,5 @@
+import datetime
+
 class Activity:
     """
     For of storing activity information
@@ -75,9 +77,6 @@ class Activity:
                ", Time: " + str(self.__time) +\
                ", Description: " + self.__description
 
-    def __repr__(self):
-        return str(self)
-
 
 class Person:
     """
@@ -135,6 +134,3 @@ class Person:
                ", Name: " + self.__name +\
                ", Phone Number: " + self.__phoneNumber +\
                ", Address: " + self.__address
-
-    def __repr__(self):
-        return str(self)

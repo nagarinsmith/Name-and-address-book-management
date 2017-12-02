@@ -1,13 +1,21 @@
+import datetime
+
+from collections import Counter
+
 from domain import Person, Activity
+
 from validators import PersonValidator, ActivityValidator
+
 from repository import Repository
+
+from exceptions import RepositoryException
 
 
 class PersonService:
     """
     Bridge between ui and repo
     """
-    def __init__(self, personRepository, activityRepository):
+    def __init__(self, activityRepository, personRepository):
         self.__personRepository = personRepository
         self.__activityRepository = activityRepository
 
@@ -69,11 +77,11 @@ class PersonService:
         :return:
         """
         searchRepo = Repository()
-        if criteria == 1:
+        if criteria == '1':
             for person in self.__personRepository.getAll():
                 if searchTerm in person.name:
                     searchRepo.store(person)
-        elif criteria == 2:
+        elif criteria == '2':
             for person in self.__personRepository.getAll():
                 if searchTerm in person.phoneNumber:
                     searchRepo.store(person)
@@ -152,3 +160,54 @@ class ActivityService:
                 if searchTerm in activity.description:
                     searchRepo.store(activity)
         return searchRepo
+
+    def dayOfWeekActivities(self, day):
+        activitiesList = []
+        for activity in self.__activityRepository.getAll():
+            if activity.date.weekday() == day:
+                activitiesList.append(activity)
+        activitiesList = sorted(activitiesList, key=lambda x: (x.date, x.time))
+        activitiesRepo = Repository()
+        for activity in activitiesList:
+            activitiesRepo.store(activity)
+        return activitiesRepo
+
+    def busiestDays(self):
+        dateList = []
+        for activity in self.__activityRepository.getAll():
+            if activity.date > datetime.date.today():
+                dateList.append(str(activity.date))
+        sortedDateList = [item for items, c in Counter(dateList).most_common() for item in [items] * c]
+        dateSet = self.uniquedList(sortedDateList)
+        dateString = '\n' + '\n'.join(dateSet) + '\n'
+        return dateString
+
+    def activitiesWithPerson(self, personId):
+        if self.__personRepository.find(personId) is None:
+            raise RepositoryException("Person does not exist in repository")
+        activitiesWithPersonRepo = Repository()
+        for activity in self.__activityRepository.getAll():
+            if personId in activity.personIds:
+                activitiesWithPersonRepo.store(activity)
+        return activitiesWithPersonRepo
+
+    def sortedPersons(self):
+        idList = []
+        for activity in self.__activityRepository.getAll():
+            idList.extend(activity.personIds)
+        sortedIdList = [item for items, c in Counter(idList).most_common() for item in [items] * c]
+        print(sortedIdList)
+        idSet = self.uniquedList(sortedIdList)
+        print(idSet)
+        sortedPersonsRepo = Repository()
+        for ID in idSet:
+            sortedPersonsRepo.store(self.__personRepository.find(ID))
+        return sortedPersonsRepo
+
+    @staticmethod
+    def uniquedList(originalList):
+        uniquedList = [originalList[0]]
+        for i in range(1, len(originalList)):
+            if originalList[i] != originalList[i-1]:
+                uniquedList.append(originalList[i])
+        return uniquedList

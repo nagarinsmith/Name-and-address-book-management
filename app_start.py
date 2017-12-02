@@ -1,6 +1,9 @@
 from repository import Repository
+
 from service import PersonService, ActivityService
+
 from menu import UI
+
 import datetime
 
 
@@ -8,7 +11,7 @@ import datetime
 activityRepo = Repository()
 personRepo = Repository()
 # Initialising controllers
-personService = PersonService(personRepo, activityRepo)
+personService = PersonService(activityRepo, personRepo)
 activityService = ActivityService(activityRepo, personRepo)
 # 10 initial values
 personService.create(1, 'Paul Orha', '0745616223', 'Str. George Cosbuc 35/46, Baia Mare, Romania')
@@ -24,4 +27,4 @@ activityService.create(5, [4, 5], datetime.date(2018, 2, 2), datetime.time(12, 0
 # initialising ui
 ux = UI(personService, activityService)
 # running user interface
-ux.mainMenu()
+ux.menu()
