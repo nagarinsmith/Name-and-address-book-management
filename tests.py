@@ -4,7 +4,6 @@ from domain import Person, Activity
 
 
 class TestPerson(TestCase):
-
     def testPerson(self):
         p = Person(1, "blabla", "0756144243", "Address 12 42 42 42")
         p.Id = 1

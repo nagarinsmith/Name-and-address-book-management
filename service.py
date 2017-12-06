@@ -15,6 +15,7 @@ class PersonService:
     """
     Bridge between ui and repo
     """
+
     def __init__(self, activityRepository, personRepository):
         self.__personRepository = personRepository
         self.__activityRepository = activityRepository
@@ -92,6 +93,7 @@ class ActivityService:
     """
     Bridge between ui and repo
     """
+
     def __init__(self, activityRepository, personRepository):
         self.__activityRepository = activityRepository
         self.__personRepository = personRepository
@@ -208,6 +210,6 @@ class ActivityService:
     def uniquedList(originalList):
         uniquedList = [originalList[0]]
         for i in range(1, len(originalList)):
-            if originalList[i] != originalList[i-1]:
+            if originalList[i] != originalList[i - 1]:
                 uniquedList.append(originalList[i])
         return uniquedList

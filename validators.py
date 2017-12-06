@@ -9,6 +9,7 @@ class PersonValidator:
     """
     Validates person object
     """
+
     @staticmethod
     def __isPhoneNumberValid(phoneNumber):
         """
@@ -56,6 +57,7 @@ class ActivityValidator:
     """
     Validates activity object
     """
+
     @staticmethod
     def validate(activity, activityRepo, personRepo):
         """

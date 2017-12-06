@@ -2,6 +2,7 @@ class RepositoryException(Exception):
     """
     In case of repository error
     """
+
     def __init__(self, message):
         self.__message = message
 
@@ -16,6 +17,7 @@ class ValidatorException(Exception):
     """
     In case of validation error
     """
+
     def __init__(self, messageList):
         self.__messageList = messageList
 
@@ -33,6 +35,7 @@ class UIException(Exception):
     """
     In case of UI error
     """
+
     def __init__(self, message):
         self.__message = message
 

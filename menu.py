@@ -95,7 +95,7 @@ class UI:
             raise UIException("Id must be integer")
         self.__personService.delete(Id)
         print("\nCommand executed successfully!\n")
-        
+
     def __removeActivity(self):
         Id = input("Activity id> ")
         try:
@@ -104,7 +104,7 @@ class UI:
             raise UIException("Id must be integer")
         self.__activityService.delete(Id)
         print("\nCommand executed successfully!\n")
-    
+
     def __updatePerson(self):
         Id = input("Person id> ")
         try:
@@ -116,7 +116,7 @@ class UI:
         address = input("Person address> ")
         self.__personService.update(Id, name, phoneNumber, address)
         print("\nCommand executed successfully!\n")
-    
+
     def __updateActivity(self):
         Id = input("Activity id> ")
         try:

@@ -1,15 +1,18 @@
 import datetime
 
+
 class Activity:
     """
     For of storing activity information
     """
+
     def __init__(self, Id, personIds, date, time, description):
         self.__Id = Id
         self.__personIds = personIds
         self.__date = date
         self.__time = time
         self.__description = description
+
     # Getters and setters
 
     @property
@@ -71,10 +74,10 @@ class Activity:
         """
         :return: String containing details about activity formatted for user
         """
-        return "Id: " + str(self.__Id) +\
-               ", Person Ids: " + self.__personIdsToPersonString() +\
-               "Date: " + str(self.__date) +\
-               ", Time: " + str(self.__time) +\
+        return "Id: " + str(self.__Id) + \
+               ", Person Ids: " + self.__personIdsToPersonString() + \
+               "Date: " + str(self.__date) + \
+               ", Time: " + str(self.__time) + \
                ", Description: " + self.__description
 
 
@@ -82,11 +85,13 @@ class Person:
     """
     For storing person information
     """
+
     def __init__(self, Id, name, phoneNumber, address):
         self.__Id = Id
         self.__name = name
         self.__phoneNumber = phoneNumber
         self.__address = address
+
     # Getters and setters
 
     @property
@@ -122,6 +127,11 @@ class Person:
         self.__address = address
 
     def __eq__(self, other):
+        """
+        Checks if two person objects have the same id
+        :param other:
+        :return: True if objects are Person and have the same id
+        """
         if not isinstance(other, Person):
             return False
         return self.Id == other.Id
@@ -130,7 +140,7 @@ class Person:
         """
         :return: String containing details about activity formatted for user
         """
-        return "Id: " + str(self.__Id) +\
-               ", Name: " + self.__name +\
-               ", Phone Number: " + self.__phoneNumber +\
+        return "Id: " + str(self.__Id) + \
+               ", Name: " + self.__name + \
+               ", Phone Number: " + self.__phoneNumber + \
                ", Address: " + self.__address
