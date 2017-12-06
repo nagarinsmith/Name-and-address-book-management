@@ -1,6 +1,3 @@
-import datetime
-
-
 class Activity:
     """
     For of storing activity information
